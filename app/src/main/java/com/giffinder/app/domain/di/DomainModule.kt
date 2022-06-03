@@ -14,7 +14,7 @@ object DomainModule {
 
     private fun DI.Builder.applyUseCaseModule() {
         bind<GetGifListUseCase>() with provider {
-            GetGifListUseCase(instance())
+            GetGifListUseCase(instance(), instance())
         }
     }
 }
