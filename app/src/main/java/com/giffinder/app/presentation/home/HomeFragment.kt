@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun configureUi() {
-        val imagesAdapter = GifListAdapter().apply {
+        val imagesAdapter = GifListAdapter(onItemClick = ::onClickByGif).apply {
             addLoadStateListener { loadState ->
                 if (loadState.source.refresh is LoadState.NotLoading && this.itemCount < 1) {
                     binding.listImages.isVisible = false
@@ -65,5 +65,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         networkManager.processing.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.isVisible = isLoading
         }
+    }
+
+    private fun onClickByGif(idSelectedItem: String) {
+        viewModel.navigateToDetailsScreen(
+            items = (binding.listImages.adapter as GifListAdapter).snapshot().items,
+            idSelectedItem = idSelectedItem
+        )
     }
 }

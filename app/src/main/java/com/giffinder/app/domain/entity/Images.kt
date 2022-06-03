@@ -1,3 +1,7 @@
 package com.giffinder.app.domain.entity
 
-data class Images(val downsized: Downsized?)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Images(val downsized: Downsized?) : Parcelable

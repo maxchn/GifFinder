@@ -5,10 +5,12 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.giffinder.app.domain.entity.GifData
 
-class GifListAdapter : PagingDataAdapter<GifData, GifViewHolder>(DiffUtilCallBack) {
+class GifListAdapter(
+    private val onItemClick: (String) -> Unit
+) : PagingDataAdapter<GifData, GifViewHolder>(DiffUtilCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder {
-        return GifViewHolder.create(parent)
+        return GifViewHolder.create(parent = parent, onItemClick = onItemClick)
     }
 
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {

@@ -14,12 +14,14 @@ import com.giffinder.app.domain.common.Constants.DEFAULT_OFFSET
 import com.giffinder.app.domain.common.Constants.PAGE_SIZE
 import com.giffinder.app.domain.entity.GifData
 import com.giffinder.app.domain.usecase.gif.GetGifListUseCase
+import com.giffinder.app.presentation.home.navigator.HomeScreenNavigator
 
 private const val RATING = "g"
 private const val LANGUAGE = "en"
 
 class HomeViewModel(
-    private val getGifListUseCase: GetGifListUseCase
+    private val getGifListUseCase: GetGifListUseCase,
+    private val homeScreenNavigator: HomeScreenNavigator
 ) : BaseViewModel() {
 
     val search = MutableLiveData<String>()
@@ -41,5 +43,12 @@ class HomeViewModel(
         val response = getGifListUseCase(params).liveData.cachedIn(viewModelScope)
         _imagesList.value = response.value
         return response
+    }
+
+    fun navigateToDetailsScreen(items: List<GifData>, idSelectedItem: String) {
+        homeScreenNavigator.pushDetailsScreen(
+            items = items.toTypedArray(),
+            selectedItemIndex = items.indexOfFirst { it.id == idSelectedItem }
+        )
     }
 }

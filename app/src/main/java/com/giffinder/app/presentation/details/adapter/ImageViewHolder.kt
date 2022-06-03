@@ -1,4 +1,4 @@
-package com.giffinder.app.presentation.home.adapter
+package com.giffinder.app.presentation.details.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,21 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.giffinder.app.R
-import com.giffinder.app.databinding.ItemGifBinding
+import com.giffinder.app.databinding.ItemGifDetailsBinding
 import com.giffinder.app.domain.entity.GifData
 
-class GifViewHolder(
-    private val binding: ItemGifBinding,
-    private val onItemClick: (String) -> Unit
+class ImageViewHolder(
+    private val binding: ItemGifDetailsBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: GifData) {
         with(binding) {
             this.item = item
-
-            root.setOnClickListener {
-                onItemClick.invoke(item.id)
-            }
 
             Glide
                 .with(image)
@@ -36,15 +31,15 @@ class GifViewHolder(
 
     companion object {
 
-        fun create(parent: ViewGroup, onItemClick: (String) -> Unit): GifViewHolder {
-            val binding: ItemGifBinding = DataBindingUtil.inflate(
+        fun create(parent: ViewGroup): ImageViewHolder {
+            val binding: ItemGifDetailsBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.item_gif,
+                R.layout.item_gif_details,
                 parent,
                 false
             )
 
-            return GifViewHolder(binding = binding, onItemClick = onItemClick)
+            return ImageViewHolder(binding = binding)
         }
     }
 }

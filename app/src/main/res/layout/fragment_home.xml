@@ -18,7 +18,7 @@
             android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/Theme.ImageViewer.AppBarOverlay"
+            android:theme="@style/Theme.GifFinder.AppBarOverlay"
             app:elevation="0dp"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -29,13 +29,13 @@
                 android:background="@color/teal_200"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
-                app:popupTheme="@style/Theme.ImageViewer.PopupOverlay">
+                app:popupTheme="@style/Theme.GifFinder.PopupOverlay">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/home"
+                    android:text="@string/home_screen"
                     android:textColor="@color/black"
                     android:textSize="@dimen/default_header_text_size"
                     android:textStyle="bold" />
