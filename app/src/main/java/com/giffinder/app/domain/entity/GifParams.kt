@@ -1,4 +1,4 @@
-package com.giffinder.app.data.remote.dto.request
+package com.giffinder.app.domain.entity
 
 data class GifParams(
     val apiKey: String,

@@ -1,6 +1,8 @@
 package com.giffinder.app.data.di
 
+import androidx.room.Room
 import com.giffinder.app.core.data.remote.NetworkManager
+import com.giffinder.app.data.local.LocalDatabase
 import com.giffinder.app.data.remote.api.GifApi
 import com.giffinder.app.data.repository.gif.GifRepository
 import com.giffinder.app.data.repository.gif.GifRepositoryImpl
@@ -15,10 +17,23 @@ object DataModule {
     fun get() = DI.Module("DataModule") {
         bind<NetworkManager>() with singleton { NetworkManager() }
 
+        bind<LocalDatabase>() with singleton {
+            Room.databaseBuilder(
+                instance(),
+                LocalDatabase::class.java,
+                LocalDatabase.NAME
+            ).build()
+        }
+
         // Api's
         bind<GifApi>() with provider { instance<Retrofit>().create(GifApi::class.java) }
 
         // Repositories
-        bind<GifRepository>() with provider { GifRepositoryImpl(instance()) }
+        bind<GifRepository>() with provider {
+            GifRepositoryImpl(
+                instance(),
+                instance()
+            )
+        }
     }
 }

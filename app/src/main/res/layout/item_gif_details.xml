@@ -33,7 +33,7 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="@{item.title}"
+                android:text="@{item.name}"
                 android:textSize="@dimen/image_title_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="[Lorem ipsum]" />

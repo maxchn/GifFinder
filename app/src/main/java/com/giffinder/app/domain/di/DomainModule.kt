@@ -1,6 +1,7 @@
 package com.giffinder.app.domain.di
 
 import com.giffinder.app.domain.usecase.gif.GetGifListUseCase
+import com.giffinder.app.domain.usecase.gif.UpdateGifUseCase
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -14,7 +15,11 @@ object DomainModule {
 
     private fun DI.Builder.applyUseCaseModule() {
         bind<GetGifListUseCase>() with provider {
-            GetGifListUseCase(instance(), instance())
+            GetGifListUseCase(instance())
+        }
+
+        bind<UpdateGifUseCase>() with provider {
+            UpdateGifUseCase(instance())
         }
     }
 }

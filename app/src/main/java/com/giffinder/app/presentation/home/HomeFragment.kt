@@ -36,7 +36,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun configureUi() {
-        val imagesAdapter = GifListAdapter(onItemClick = ::onClickByGif).apply {
+        val imagesAdapter = GifListAdapter(
+            onItemClick = ::onClickByGif,
+            onItemUpdate = viewModel::updateGif
+        ).apply {
             addLoadStateListener { loadState ->
                 if (loadState.source.refresh is LoadState.NotLoading && this.itemCount < 1) {
                     binding.listImages.isVisible = false

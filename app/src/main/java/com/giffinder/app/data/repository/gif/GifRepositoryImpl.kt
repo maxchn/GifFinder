@@ -1,19 +1,32 @@
 package com.giffinder.app.data.repository.gif
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import com.giffinder.app.data.local.LocalDatabase
+import com.giffinder.app.data.local.dto.GifLocal
 import com.giffinder.app.data.remote.api.GifApi
-import com.giffinder.app.data.remote.dto.request.GifParams
-import com.giffinder.app.data.remote.dto.response.GifDataResultResponse
+import com.giffinder.app.domain.common.Constants.PAGE_SIZE
+import com.giffinder.app.domain.entity.GifParams
 
-class GifRepositoryImpl(private val api: GifApi) : GifRepository {
+class GifRepositoryImpl(
+    private val api: GifApi,
+    private val db: LocalDatabase
+) : GifRepository {
 
-    override suspend fun loadGifList(params: GifParams): GifDataResultResponse {
-        return api.loadImages(
-            apiKey = params.apiKey,
-            query = params.query,
-            limit = params.limit,
-            offset = params.offset,
-            rating = params.rating,
-            lang = params.lang
-        )
+    @OptIn(ExperimentalPagingApi::class)
+    override fun loadGifList(params: GifParams): Pager<Int, GifLocal> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE
+            ),
+            remoteMediator = GifRemoteMediator(params, db, api)
+        ) {
+            db.gifDao().pagingSource(params.query)
+        }
+    }
+
+    override suspend fun updateGif(updatedGif: GifLocal) {
+        db.gifDao().update(updatedGif)
     }
 }

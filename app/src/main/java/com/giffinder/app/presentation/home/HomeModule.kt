@@ -18,6 +18,7 @@ object HomeModule {
             fragment.vm(
                 HomeViewModelFactory(
                     instance(),
+                    instance(),
                     instance()
                 )
             )

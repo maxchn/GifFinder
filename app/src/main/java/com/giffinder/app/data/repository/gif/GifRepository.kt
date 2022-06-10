@@ -1,8 +1,10 @@
 package com.giffinder.app.data.repository.gif
 
-import com.giffinder.app.data.remote.dto.request.GifParams
-import com.giffinder.app.data.remote.dto.response.GifDataResultResponse
+import androidx.paging.Pager
+import com.giffinder.app.data.local.dto.GifLocal
+import com.giffinder.app.domain.entity.GifParams
 
 interface GifRepository {
-    suspend fun loadGifList(params: GifParams): GifDataResultResponse
+    fun loadGifList(params: GifParams): Pager<Int, GifLocal>
+    suspend fun updateGif(updatedGif: GifLocal)
 }

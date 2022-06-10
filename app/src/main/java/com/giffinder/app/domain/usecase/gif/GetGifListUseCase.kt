@@ -1,32 +1,14 @@
 package com.giffinder.app.domain.usecase.gif
 
 import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import com.giffinder.app.core.data.remote.NetworkManager
 import com.giffinder.app.core.domain.BaseUseCase
-import com.giffinder.app.data.remote.dto.request.GifParams
+import com.giffinder.app.data.local.dto.GifLocal
 import com.giffinder.app.data.repository.gif.GifRepository
-import com.giffinder.app.domain.common.Constants.PAGE_SIZE
-import com.giffinder.app.domain.entity.GifData
+import com.giffinder.app.domain.entity.GifParams
 
-class GetGifListUseCase(
-    private val repository: GifRepository,
-    private val networkManager: NetworkManager
-) : BaseUseCase() {
+class GetGifListUseCase(private val repository: GifRepository) : BaseUseCase() {
 
-    operator fun invoke(params: GifParams): Pager<Int, GifData> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = {
-                GifListPagingSource(
-                    imageRepository = repository,
-                    imageParams = params,
-                    networkManager = networkManager
-                )
-            }
-        )
+    operator fun invoke(params: GifParams): Pager<Int, GifLocal> {
+        return repository.loadGifList(params)
     }
 }
