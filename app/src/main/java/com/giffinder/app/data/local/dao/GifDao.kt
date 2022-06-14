@@ -21,4 +21,7 @@ interface GifDao {
 
     @Query("DELETE FROM GifLocal WHERE query = :query")
     suspend fun deleteByQuery(query: String)
+
+    @Query("DELETE FROM GifLocal WHERE id = :id")
+    suspend fun deleteById(id: String)
 }

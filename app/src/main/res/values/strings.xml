@@ -2,8 +2,12 @@
     <string name="app_name">GifFinder</string>
 
     <string name="dlg_title_oops">Oops!</string>
+    <string name="dlg_info_title">Info</string>
+    <string name="dlg_block_gif">Do you want to block this GIF?</string>
 
     <string name="action_back">Back</string>
+    <string name="action_block">Block</string>
+    <string name="action_cancel">Cancel</string>
 
     <string name="home_screen">Home</string>
     <string name="details_screen">Details</string>

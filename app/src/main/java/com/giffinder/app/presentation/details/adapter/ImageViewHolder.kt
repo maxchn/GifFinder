@@ -12,12 +12,17 @@ import com.giffinder.app.databinding.ItemGifDetailsBinding
 import com.giffinder.app.domain.entity.GifData
 
 class ImageViewHolder(
-    private val binding: ItemGifDetailsBinding
+    private val binding: ItemGifDetailsBinding,
+    private val onItemBlock: (item: GifData) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: GifData) {
         with(binding) {
             this.item = item
+
+            imageBlock.setOnClickListener {
+                onItemBlock.invoke(item)
+            }
 
             val url = item.localUrl.ifEmpty {
                 item.remoteUrl
@@ -37,7 +42,7 @@ class ImageViewHolder(
 
     companion object {
 
-        fun create(parent: ViewGroup): ImageViewHolder {
+        fun create(parent: ViewGroup, onItemBlock: (item: GifData) -> Unit): ImageViewHolder {
             val binding: ItemGifDetailsBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.item_gif_details,
@@ -45,7 +50,10 @@ class ImageViewHolder(
                 false
             )
 
-            return ImageViewHolder(binding = binding)
+            return ImageViewHolder(
+                binding = binding,
+                onItemBlock = onItemBlock
+            )
         }
     }
 }

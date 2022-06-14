@@ -27,7 +27,7 @@ class GifRemoteMediator(
 
     private val userDao = db.gifDao()
 
-    var lastPagination: Pagination? = null
+    private var lastPagination: Pagination? = null
 
     override suspend fun load(
         loadType: LoadType,
@@ -63,7 +63,12 @@ class GifRemoteMediator(
                         userDao.deleteByQuery(params.query)
                     }
 
-                    userDao.insertAll((response.data ?: listOf()).toLocalGifList(params.query))
+                    val receivedGifList = response.data.orEmpty()
+                    val allBlockGif = db.blockImageDao().getAll()
+
+                    userDao.insertAll(receivedGifList.filter {
+                        !allBlockGif.contains(it.id)
+                    }.toLocalGifList(params.query))
                 }
 
                 MediatorResult.Success(

@@ -14,7 +14,7 @@ object DetailsModule {
         }
 
         bind<DetailsViewModel>() with provider {
-            fragment.vm(DetailsViewModelFactory(instance()))
+            fragment.vm(DetailsViewModelFactory(instance(), instance()))
         }
     }
 }
