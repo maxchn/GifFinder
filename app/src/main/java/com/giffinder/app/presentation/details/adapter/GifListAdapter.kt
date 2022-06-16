@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.giffinder.app.domain.entity.GifData
 
-class ImagesAdapter(
+class GifListAdapter(
     private val onItemBlock: (item: GifData) -> Unit
-) : RecyclerView.Adapter<ImageViewHolder>() {
+) : RecyclerView.Adapter<GifViewHolder>() {
 
     private val diffItemCallback = object : DiffUtil.ItemCallback<GifData>() {
         override fun areItemsTheSame(oldItem: GifData, newItem: GifData): Boolean {
@@ -36,14 +36,14 @@ class ImagesAdapter(
         setNewItems(items.filter { it.id != item.id })
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        return ImageViewHolder.create(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder {
+        return GifViewHolder.create(
             parent = parent,
             onItemBlock = onItemBlock
         )
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
         holder.bind(items[position])
     }
 

@@ -8,7 +8,7 @@ import com.giffinder.app.databinding.FragmentDetailsBinding
 import com.giffinder.app.domain.entity.GifData
 import com.giffinder.app.presentation.common.dialog.AlertDialogConfig
 import com.giffinder.app.presentation.common.extensions.createAndShowQuestionDialog
-import com.giffinder.app.presentation.details.adapter.ImagesAdapter
+import com.giffinder.app.presentation.details.adapter.GifListAdapter
 import org.kodein.di.instance
 import java.io.File
 
@@ -25,13 +25,13 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
     override fun viewCreated(savedInstanceState: Bundle?) {
         binding.viewModel = viewModel
 
-        val adapter = ImagesAdapter(onItemBlock = ::onBlockGif).apply {
+        val adapter = GifListAdapter(onItemBlock = ::onBlockGif).apply {
             setNewItems(args.items.toList())
         }
 
         binding.viewPagerImages.adapter = adapter
         binding.viewPagerImages.isSaveEnabled = false
-        binding.viewPagerImages.currentItem = args.selectedItemIndex
+        binding.viewPagerImages.setCurrentItem(args.selectedItemIndex, false)
 
         viewModel.blockGifFile.observe(viewLifecycleOwner) { gif ->
             val file = File(gif.localUrl)

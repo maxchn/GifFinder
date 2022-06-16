@@ -5,6 +5,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.giffinder.app.core.data.remote.NetworkManager
 import com.giffinder.app.data.local.LocalDatabase
 import com.giffinder.app.data.local.dto.GifLocal
 import com.giffinder.app.data.remote.api.GifApi
@@ -20,6 +21,7 @@ import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class GifRemoteMediator(
+    private val networkManager: NetworkManager,
     private val params: GifParams,
     private val db: LocalDatabase,
     private val imageApi: GifApi
@@ -39,12 +41,10 @@ class GifRemoteMediator(
                 LoadType.PREPEND -> return MediatorResult.Success(
                     endOfPaginationReached = true
                 )
-                LoadType.APPEND -> {
-                    lastPagination?.let {
-                        it.offset + it.count
-                    } ?: 0
-                }
+                LoadType.APPEND -> lastPagination?.let { it.offset + it.count } ?: 0
             }
+
+            networkManager.startProcessing()
 
             val response = imageApi.loadImages(
                 apiKey = params.apiKey,
@@ -72,15 +72,19 @@ class GifRemoteMediator(
                 }
 
                 MediatorResult.Success(
-                    endOfPaginationReached = response.pagination!!.offset!! + response.pagination.count!! >= response.pagination.totalCount!!
+                    endOfPaginationReached =
+                    response.pagination!!.offset!! + response.pagination.count!!
+                            >= response.pagination.totalCount!!
                 )
             } else {
-                MediatorResult.Error(Exception())
+                MediatorResult.Error(Error())
             }
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {
             MediatorResult.Error(e)
+        } finally {
+            networkManager.stopProcessing()
         }
     }
 }

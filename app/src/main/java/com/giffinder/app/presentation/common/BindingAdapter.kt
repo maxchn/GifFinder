@@ -4,7 +4,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.giffinder.app.presentation.common.decoration.GridSpacingItemDecoration
 
-@BindingAdapter("bind:itemDeco")
+@BindingAdapter("android:itemDecoration")
 fun setDecoration(view: RecyclerView, space: Float) {
     view.addItemDecoration(
         GridSpacingItemDecoration(

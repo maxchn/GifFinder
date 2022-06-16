@@ -8,7 +8,7 @@ import com.giffinder.app.domain.entity.GifData
 class GifListAdapter(
     private val onItemClick: (String) -> Unit,
     private val onItemUpdate: (GifData) -> Unit
-) : PagingDataAdapter<GifData, GifViewHolder>(DiffUtilCallBack) {
+) : PagingDataAdapter<GifData, GifViewHolder>(ItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder {
         return GifViewHolder.create(
@@ -22,7 +22,15 @@ class GifListAdapter(
         getItem(position)?.let { holder.bind(it) }
     }
 
-    object DiffUtilCallBack : DiffUtil.ItemCallback<GifData>() {
+    override fun onBindViewHolder(
+        holder: GifViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        getItem(position)?.let { holder.bind(it) }
+    }
+
+    class ItemDiffCallback : DiffUtil.ItemCallback<GifData>() {
         override fun areItemsTheSame(
             oldItem: GifData,
             newItem: GifData

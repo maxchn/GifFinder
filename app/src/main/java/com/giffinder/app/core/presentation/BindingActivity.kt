@@ -8,7 +8,9 @@ import androidx.databinding.ViewDataBinding
 
 abstract class BindingActivity<B : ViewDataBinding> : BaseActivity() {
 
-    protected lateinit var binding: B
+    private var _binding: B? = null
+
+    protected val binding get() = _binding!!
 
     abstract val viewModel: BaseViewModel
 
@@ -18,7 +20,7 @@ abstract class BindingActivity<B : ViewDataBinding> : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.inflate(LayoutInflater.from(this), getLayoutRes(), null, false)
+        _binding = DataBindingUtil.inflate(LayoutInflater.from(this), getLayoutRes(), null, false)
         binding.lifecycleOwner = this
 
         lifecycle.addObserver(viewModel)
@@ -29,5 +31,11 @@ abstract class BindingActivity<B : ViewDataBinding> : BaseActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
     }
 }

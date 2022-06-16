@@ -11,7 +11,7 @@ import com.giffinder.app.R
 import com.giffinder.app.databinding.ItemGifDetailsBinding
 import com.giffinder.app.domain.entity.GifData
 
-class ImageViewHolder(
+class GifViewHolder(
     private val binding: ItemGifDetailsBinding,
     private val onItemBlock: (item: GifData) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -42,7 +42,7 @@ class ImageViewHolder(
 
     companion object {
 
-        fun create(parent: ViewGroup, onItemBlock: (item: GifData) -> Unit): ImageViewHolder {
+        fun create(parent: ViewGroup, onItemBlock: (item: GifData) -> Unit): GifViewHolder {
             val binding: ItemGifDetailsBinding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.item_gif_details,
@@ -50,7 +50,7 @@ class ImageViewHolder(
                 false
             )
 
-            return ImageViewHolder(
+            return GifViewHolder(
                 binding = binding,
                 onItemBlock = onItemBlock
             )

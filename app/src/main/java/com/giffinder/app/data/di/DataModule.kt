@@ -32,6 +32,7 @@ object DataModule {
         bind<GifRepository>() with provider {
             GifRepositoryImpl(
                 instance(),
+                instance(),
                 instance()
             )
         }

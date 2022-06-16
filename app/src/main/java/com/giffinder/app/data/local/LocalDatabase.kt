@@ -7,7 +7,7 @@ import com.giffinder.app.data.local.dao.GifDao
 import com.giffinder.app.data.local.dto.BlockGifLocal
 import com.giffinder.app.data.local.dto.GifLocal
 
-@Database(entities = [GifLocal::class, BlockGifLocal::class], version = 2)
+@Database(entities = [GifLocal::class, BlockGifLocal::class], version = 2, exportSchema = false)
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun gifDao(): GifDao
     abstract fun blockImageDao(): BlockImageDao
