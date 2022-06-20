@@ -9,14 +9,12 @@ import com.giffinder.app.domain.entity.GifData
 import com.giffinder.app.presentation.common.dialog.AlertDialogConfig
 import com.giffinder.app.presentation.common.extensions.createAndShowQuestionDialog
 import com.giffinder.app.presentation.details.adapter.GifListAdapter
-import org.kodein.di.instance
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
 
-    override val viewModelModule = DetailsModule.get(this)
-
-    override val viewModel: DetailsViewModel by instance()
+    override val viewModel by viewModel<DetailsViewModel>()
 
     override val layoutRes: Int = R.layout.fragment_details
 

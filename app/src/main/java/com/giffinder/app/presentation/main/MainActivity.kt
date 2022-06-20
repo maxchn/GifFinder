@@ -1,25 +1,16 @@
 package com.giffinder.app.presentation.main
 
 import android.os.Bundle
+import androidx.navigation.findNavController
 import com.giffinder.app.R
 import com.giffinder.app.core.presentation.BindingActivity
 import com.giffinder.app.databinding.ActivityMainBinding
 import com.giffinder.app.presentation.common.NavControllerProvider
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.instance
-import org.kodein.di.provider
-import org.kodein.di.singleton
+import org.koin.android.ext.android.inject
 
 class MainActivity : BindingActivity<ActivityMainBinding>() {
 
-    override fun diModule() = DI.Module(MainActivity::class.java.toString()) {
-        bind<NavControllerProvider>() with singleton { NavControllerProvider(this@MainActivity) }
-
-        bind<MainViewModel>() with provider { MainViewModel() }
-    }
-
-    override val viewModel: MainViewModel by instance()
+    override val viewModel: MainViewModel by inject()
 
     override fun getLayoutRes(): Int = R.layout.activity_main
 
@@ -27,5 +18,11 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
 
         binding.viewModel = viewModel
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        NavControllerProvider.setNavController(findNavController(R.id.main_container))
     }
 }

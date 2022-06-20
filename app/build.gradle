@@ -66,8 +66,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
 
     // DI
-    implementation "org.kodein.di:kodein-di-framework-android-core:$kodein_version"
-    implementation "org.kodein.di:kodein-di-framework-android-x:$kodein_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
 
     // DB
     implementation "androidx.room:room-runtime:$room_version"

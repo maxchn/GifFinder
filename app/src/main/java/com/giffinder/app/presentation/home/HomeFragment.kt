@@ -11,17 +11,16 @@ import com.giffinder.app.core.presentation.BaseFragment
 import com.giffinder.app.databinding.FragmentHomeBinding
 import com.giffinder.app.presentation.common.extensions.createAndShowInfoAlertDialog
 import com.giffinder.app.presentation.home.adapter.GifListAdapter
-import org.kodein.di.instance
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    override val viewModelModule = HomeModule.get(this)
-
-    override val viewModel: HomeViewModel by instance()
+    override val viewModel by viewModel<HomeViewModel>()
 
     override val layoutRes: Int = R.layout.fragment_home
 
-    private val networkManager: NetworkManager by instance()
+    private val networkManager: NetworkManager by inject()
 
     private var gifListAdapter: GifListAdapter? = null
     private var lastVisiblePosition: Int = -1
