@@ -11,8 +11,9 @@ import com.giffinder.app.data.local.dto.GifLocal
 import com.giffinder.app.data.remote.api.GifApi
 import com.giffinder.app.domain.common.Constants.PAGE_SIZE
 import com.giffinder.app.domain.entity.GifParams
+import javax.inject.Inject
 
-class GifRepositoryImpl(
+class GifRepositoryImpl @Inject constructor(
     private val networkManager: NetworkManager,
     private val api: GifApi,
     private val db: LocalDatabase

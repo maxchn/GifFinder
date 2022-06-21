@@ -1,6 +1,7 @@
 package com.giffinder.app.presentation.details
 
 import android.os.Bundle
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.giffinder.app.R
 import com.giffinder.app.core.presentation.BaseFragment
@@ -9,14 +10,13 @@ import com.giffinder.app.domain.entity.GifData
 import com.giffinder.app.presentation.common.dialog.AlertDialogConfig
 import com.giffinder.app.presentation.common.extensions.createAndShowQuestionDialog
 import com.giffinder.app.presentation.details.adapter.GifListAdapter
-import org.kodein.di.instance
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
+@AndroidEntryPoint
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
 
-    override val viewModelModule = DetailsModule.get(this)
-
-    override val viewModel: DetailsViewModel by instance()
+    override val viewModel: DetailsViewModel by viewModels()
 
     override val layoutRes: Int = R.layout.fragment_details
 

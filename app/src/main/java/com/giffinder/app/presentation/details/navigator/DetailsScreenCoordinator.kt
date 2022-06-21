@@ -1,12 +1,11 @@
 package com.giffinder.app.presentation.details.navigator
 
 import com.giffinder.app.presentation.common.NavControllerProvider
+import javax.inject.Inject
 
-class DetailsScreenCoordinator(
-    private val navControllerProvider: NavControllerProvider
-) : DetailsScreenNavigator {
+class DetailsScreenCoordinator @Inject constructor() : DetailsScreenNavigator {
 
     override fun pop() {
-        navControllerProvider.get().navigateUp()
+        NavControllerProvider.get().navigateUp()
     }
 }

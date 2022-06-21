@@ -2,10 +2,12 @@ package com.giffinder.app.core.presentation
 
 import android.content.Context
 import androidx.core.content.ContextCompat
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.InputStream
+import javax.inject.Inject
 
-class AndroidResourceReader(
-    private val context: Context
+class AndroidResourceReader @Inject constructor(
+    @ApplicationContext private val context: Context
 ) : ResourceReader {
 
     private val resources = context.resources

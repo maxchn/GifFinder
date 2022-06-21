@@ -3,6 +3,7 @@ package com.giffinder.app.presentation.home
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.giffinder.app.R
@@ -11,17 +12,18 @@ import com.giffinder.app.core.presentation.BaseFragment
 import com.giffinder.app.databinding.FragmentHomeBinding
 import com.giffinder.app.presentation.common.extensions.createAndShowInfoAlertDialog
 import com.giffinder.app.presentation.home.adapter.GifListAdapter
-import org.kodein.di.instance
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    override val viewModelModule = HomeModule.get(this)
-
-    override val viewModel: HomeViewModel by instance()
+    override val viewModel: HomeViewModel by viewModels()
 
     override val layoutRes: Int = R.layout.fragment_home
 
-    private val networkManager: NetworkManager by instance()
+    @Inject
+    lateinit var networkManager: NetworkManager
 
     private var gifListAdapter: GifListAdapter? = null
     private var lastVisiblePosition: Int = -1

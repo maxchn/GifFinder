@@ -19,12 +19,15 @@ import com.giffinder.app.domain.entity.GifParams
 import com.giffinder.app.domain.usecase.gif.GetGifListUseCase
 import com.giffinder.app.domain.usecase.gif.UpdateGifUseCase
 import com.giffinder.app.presentation.home.navigator.HomeScreenNavigator
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val RATING = "g"
 private const val LANGUAGE = "en"
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val getGifListUseCase: GetGifListUseCase,
     private val updateGifUseCase: UpdateGifUseCase,
     private val homeScreenNavigator: HomeScreenNavigator

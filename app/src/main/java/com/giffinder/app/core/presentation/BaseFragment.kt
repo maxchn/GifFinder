@@ -1,6 +1,5 @@
 package com.giffinder.app.core.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,30 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import org.kodein.di.DI
-import org.kodein.di.DIAware
-import org.kodein.di.DITrigger
-import org.kodein.di.android.x.closestDI
 
-abstract class BaseFragment<B : ViewDataBinding> : Fragment(), DIAware {
-
-    private val _parentKodein: DI by closestDI()
-
-    override val di: DI = DI.lazy {
-        extend(_parentKodein, true)
-
-        with(parentFragment) {
-            if (this is BaseFragment<*>) {
-                extend(di, true)
-            }
-        }
-
-        import(viewModelModule, true)
-    }
-
-    open val viewModelModule: DI.Module = DI.Module("default2") {}
-
-    override val diTrigger = DITrigger()
+abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     abstract val viewModel: BaseViewModel
 
@@ -42,12 +19,6 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), DIAware {
     private var _binding: B? = null
 
     protected val binding get() = _binding!!
-
-    override fun onAttach(context: Context) {
-        diTrigger.trigger()
-
-        super.onAttach(context)
-    }
 
     abstract fun viewCreated(savedInstanceState: Bundle?)
 
