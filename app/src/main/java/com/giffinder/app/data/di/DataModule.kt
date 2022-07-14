@@ -29,8 +29,9 @@ object DataModule {
         bind<GifApi>() with provider { instance<Retrofit>().create(GifApi::class.java) }
 
         // Repositories
-        bind<GifRepository>() with provider {
+        bind<GifRepository>() with singleton {
             GifRepositoryImpl(
+                instance(),
                 instance(),
                 instance(),
                 instance()

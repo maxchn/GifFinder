@@ -1,7 +1,9 @@
 package com.giffinder.app
 
 import android.content.Context
+import com.giffinder.app.core.AppDispatchers
 import com.giffinder.app.core.presentation.AndroidResourceReader
+import com.giffinder.app.core.presentation.EventBus
 import com.giffinder.app.core.presentation.ResourceReader
 import com.giffinder.app.data.di.DataModule
 import com.giffinder.app.data.di.RetrofitModule
@@ -28,5 +30,9 @@ object AppModule {
                 instance()
             )
         }
+
+        bind<AppDispatchers>() with singleton { AppDispatchers() }
+
+        bind<EventBus>() with singleton { EventBus() }
     }
 }

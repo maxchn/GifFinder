@@ -1,19 +1,20 @@
 package com.giffinder.app.presentation.details
 
+import android.os.Bundle
 import androidx.lifecycle.viewModelScope
 import com.giffinder.app.core.presentation.BaseViewModel
-import com.giffinder.app.core.presentation.livedata.SingleLiveEvent
+import com.giffinder.app.core.presentation.EventBus
 import com.giffinder.app.domain.entity.GifData
 import com.giffinder.app.domain.usecase.gif.BlockGifUseCase
+import com.giffinder.app.presentation.common.Constants.Companion.ARG_GIF_DATA
 import com.giffinder.app.presentation.details.navigator.DetailsScreenNavigator
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(
     private val navigator: DetailsScreenNavigator,
-    private val blockGifUseCase: BlockGifUseCase
+    private val blockGifUseCase: BlockGifUseCase,
+    private val eventBus: EventBus
 ) : BaseViewModel() {
-
-    val blockGifFile = SingleLiveEvent<GifData>()
 
     fun onClickBack() {
         navigator.pop()
@@ -23,7 +24,14 @@ class DetailsViewModel(
         viewModelScope.launch(exceptionHandler) {
             blockGifUseCase(item)
 
-            blockGifFile.value = item
+            eventBus.invokeEvent(
+                EventBus.AppEvent(
+                    type = EventBus.AppEventType.REMOVE_GIF,
+                    options = Bundle().apply {
+                        putParcelable(ARG_GIF_DATA, item)
+                    }
+                )
+            )
         }
     }
 }
