@@ -17,9 +17,9 @@ import com.giffinder.app.presentation.common.Constants
 import com.giffinder.app.presentation.common.extensions.createAndShowInfoAlertDialog
 import com.giffinder.app.presentation.home.adapter.GifListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -31,7 +31,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     @Inject
     lateinit var networkManager: NetworkManager
 
-    private val eventBus: EventBus by instance()
+    @Inject
+    lateinit var eventBus: EventBus
 
     private var gifListAdapter: GifListAdapter? = null
     private var lastVisiblePosition: Int = -1

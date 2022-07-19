@@ -13,10 +13,11 @@ import com.giffinder.app.presentation.common.Constants.Companion.ARG_GIF_DATA
 import com.giffinder.app.presentation.common.dialog.AlertDialogConfig
 import com.giffinder.app.presentation.common.extensions.createAndShowQuestionDialog
 import com.giffinder.app.presentation.details.adapter.GifListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
-import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
@@ -27,7 +28,8 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
 
     private val args: DetailsFragmentArgs by navArgs()
 
-    private val eventBus: EventBus by instance()
+    @Inject
+    lateinit var eventBus: EventBus
 
     override fun viewCreated(savedInstanceState: Bundle?) {
         binding.viewModel = viewModel
